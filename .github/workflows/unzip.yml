@@ -14,8 +14,17 @@ jobs:
 
       - name: Unzip project
         run: |
-          unzip -o AUTOCAT-JP-v25.zip
-          rm AUTOCAT-JP-v25.zip
+          ZIP_FILE=$(find . -maxdepth 1 -type f -name "*.zip" | head -n 1)
+          unzip -o "$ZIP_FILE" -d extracted
+          rm "$ZIP_FILE"
+
+          if [ -d "extracted/autocat_site_ready" ]; then
+            cp -a extracted/autocat_site_ready/. .
+          else
+            cp -a extracted/. .
+          fi
+
+          rm -rf extracted
 
       - name: Commit extracted files
         run: |
