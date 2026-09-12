@@ -1,0 +1,2 @@
+"""AUTOCAT JP chat package."""
+
